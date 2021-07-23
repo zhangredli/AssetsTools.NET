@@ -445,6 +445,53 @@ namespace AssetsTools.NET.Extra
                 return baseValueField;
             }
         }
+
+        public AssetTypeValueField GetMonoBaseField(AssetsFileInstance inst, AssetFileInfoEx info, string managedPath)
+        {
+            AssetsFile file = inst.file;
+            ushort scriptIndex = AssetHelper.GetScriptIndex(file, info);
+            if (scriptIndex == 0xFFFF)
+                return null;
+
+            string scriptName;
+            if (!inst.monoIdToName.ContainsKey(scriptIndex))
+            {
+                AssetTypeInstance scriptAti = GetExtAsset(inst, GetTypeInstance(inst.file, info).GetBaseField().Get("m_Script")).instance;
+
+                //couldn't find asset
+                if (scriptAti == null)
+                    return null;
+
+                scriptName = scriptAti.GetBaseField().Get("m_Name").GetValue().AsString();
+                string scriptNamespace = scriptAti.GetBaseField().Get("m_Namespace").GetValue().AsString();
+                string assemblyName = scriptAti.GetBaseField().Get("m_AssemblyName").GetValue().AsString();
+
+                if (scriptNamespace == string.Empty)
+                {
+                    scriptNamespace = "-";
+                }
+
+                scriptName = $"{assemblyName}.{scriptNamespace}.{scriptName}";
+                inst.monoIdToName[scriptIndex] = scriptName;
+            }
+            else
+            {
+                scriptName = inst.monoIdToName[scriptIndex];
+            }
+
+            if (monoTemplateFieldCache.ContainsKey(scriptName))
+            {
+                AssetTypeTemplateField baseTemplateField = monoTemplateFieldCache[scriptName];
+                AssetTypeInstance baseAti = new AssetTypeInstance(baseTemplateField, file.reader, info.absoluteFilePos);
+                return baseAti.GetBaseField();
+            }
+            else
+            {
+                AssetTypeValueField baseValueField = MonoDeserializer.GetMonoBaseField(this, inst, info, managedPath,false);
+                monoTemplateFieldCache[scriptName] = baseValueField.templateField;
+                return baseValueField;
+            }
+        }
         #endregion
 
         #region class database

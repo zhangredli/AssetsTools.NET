@@ -57,6 +57,18 @@ namespace SevenZip.Compression.LZMA
             encoder.Code(inStream, outStream, -1, -1, null);
             return outStream.ToArray();
         }
+        public static void Compress(Stream inStream, Stream outStream)
+        {
+            Encoder encoder = new Encoder();
+            encoder.SetCoderProperties(propIDs, properties);
+            encoder.WriteCoderProperties(outStream);
+            //don't write size
+            //long fileSize = inStream.Length;
+            //for (int i = 0; i < 8; i++)
+            //    outStream.WriteByte((Byte)(fileSize >> (8 * i)));
+            encoder.Code(inStream, outStream, -1, -1, null);
+        }
+
 
         public static byte[] Decompress(byte[] inputBytes)
         {

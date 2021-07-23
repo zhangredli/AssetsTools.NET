@@ -7,6 +7,7 @@ namespace AssetsTools.NET
     {
         public EnumValueTypes type;
 
+        public long Pos;
         public struct ValueTypes
         {
             private object value;

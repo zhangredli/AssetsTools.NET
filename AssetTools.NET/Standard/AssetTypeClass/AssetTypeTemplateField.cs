@@ -150,6 +150,7 @@ namespace AssetsTools.NET
                 if (type != 0) valueField.value = new AssetTypeValue(type, null);
                 if (type == EnumValueTypes.String)
                 {
+                    valueField.value.Pos = reader.Position;
                     int length = reader.ReadInt32();
                     valueField.value.Set(reader.ReadBytes(length));
                     reader.Align();
