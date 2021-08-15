@@ -273,6 +273,8 @@ namespace AssetsTools.NET.Extra
         {
             if (typeDef.IsInterface)
                 return false;
+            if (typeDef.FullName == "System.Object")
+                return false;
             if (typeDef.BaseType.FullName == "UnityEngine.Object" ||
                 typeDef.FullName == "UnityEngine.Object")
                 return true;

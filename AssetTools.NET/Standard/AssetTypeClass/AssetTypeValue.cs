@@ -23,57 +23,57 @@ namespace AssetsTools.NET
             }
             public bool asBool
             {
-                get { return (bool)value; }
+                get { return Convert.ToBoolean(value); }
                 set { this.value = value; }
             }
             public sbyte asInt8
             {
-                get { return (sbyte)value; }
+                get { return Convert.ToSByte(value); }
                 set { this.value = value; }
             }
             public byte asUInt8
             {
-                get { return (byte)value; }
+                get { return Convert.ToByte(value); }
                 set { this.value = value; }
             }
             public short asInt16
             {
-                get { return (short)value; }
+                get { return Convert.ToInt16(value); }
                 set { this.value = value; }
             }
             public ushort asUInt16
             {
-                get { return (ushort)value; }
+                get { return Convert.ToUInt16(value); }
                 set { this.value = value; }
             }
             public int asInt32
             {
-                get { return (int)value; }
+                get { return Convert.ToInt32(value); }
                 set { this.value = value; }
             }
             public uint asUInt32
             {
-                get { return (uint)value; }
+                get { return Convert.ToUInt32(value); }
                 set { this.value = value; }
             }
             public long asInt64
             {
-                get { return (long)value; }
+                get { return Convert.ToInt64(value); }
                 set { this.value = value; }
             }
             public ulong asUInt64
             {
-                get { return (ulong)value; }
+                get { return Convert.ToUInt64(value); }
                 set { this.value = value; }
             }
             public float asFloat
             {
-                get { return (float)value; }
+                get { return Convert.ToSingle(value); }
                 set { this.value = value; }
             }
             public double asDouble
             {
-                get { return (double)value; }
+                get { return Convert.ToDouble(value); }
                 set { this.value = value; }
             }
             public byte[] asString
@@ -101,7 +101,11 @@ namespace AssetsTools.NET
                 switch (type)
                 {
                     case EnumValueTypes.Bool:
-                        value.asBool = Convert.ToByte(valueContainer) == 1 ? true : false;
+                        if(valueContainer.ToString().ToLower() == "true" || valueContainer.ToString().ToLower()=="false")
+                        {
+                            value.asBool = Convert.ToBoolean(valueContainer);
+                        }
+                        else value.asBool = Convert.ToByte(valueContainer) == 1 ? true : false;
                         break;
                     case EnumValueTypes.Int8:
                         value.asInt8 = Convert.ToSByte(valueContainer);
