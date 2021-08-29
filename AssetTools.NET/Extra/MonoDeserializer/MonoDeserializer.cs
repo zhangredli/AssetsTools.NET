@@ -345,7 +345,7 @@ namespace AssetsTools.NET.Extra
             AssetTypeTemplateField data = new AssetTypeTemplateField();
             data.name = "data";
             data.type = "char";
-            data.valueType = EnumValueTypes.UInt8;
+            data.valueType = EnumValueTypes.UInt16;
             data.isArray = false;
             data.align = false;
             data.hasValue = true;
@@ -606,7 +606,7 @@ namespace AssetsTools.NET.Extra
         private AssetTypeTemplateField[] String()
         {
             AssetTypeTemplateField size = CreateTemplateField("size", "int", EnumValueTypes.Int32);
-            AssetTypeTemplateField data = CreateTemplateField("char", "data", EnumValueTypes.UInt8);
+            AssetTypeTemplateField data = CreateTemplateField("char", "data", EnumValueTypes.UInt16);
             AssetTypeTemplateField Array = CreateTemplateField("Array", "Array", EnumValueTypes.Array, true, true, 2, new AssetTypeTemplateField[] {
                 size, data
             });

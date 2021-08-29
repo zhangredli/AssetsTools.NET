@@ -71,13 +71,13 @@
                 case "sbyte":
                     return EnumValueTypes.Int8;
                 case "uint8":
-                case "char":
                 case "byte":
                     return EnumValueTypes.UInt8;
                 case "sint16":
                 case "short":
                     return EnumValueTypes.Int16;
                 case "uint16":
+                case "char":
                 case "unsigned short":
                 case "ushort":
                     return EnumValueTypes.UInt16;
